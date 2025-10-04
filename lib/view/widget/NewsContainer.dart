@@ -19,7 +19,7 @@ class NewsContainer extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Column(children: [
-        Image.network(imgUrl),
+        Image.network(imgUrl,height: 300,width: 300,),
         Text(newsHead,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
         Text(newsDes,style: TextStyle(fontSize:17 ),),
         ElevatedButton(
