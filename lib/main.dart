@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/controller/fetchNews.dart';
-import 'package:newsapp/view/home.dart';
+import 'package:news_snack/view/home.dart';
+import 'package:news_snack/view/spalsh.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,19 +14,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool showingSplash = true;
+  LoadHome() {
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        showingSplash = false;
+      });
+    });
+  }
+
   @override
   void initState() {
-    FetchNews.fetchNews();
+    // TODO: implement initState
     super.initState();
+    LoadHome();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'news apps',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomeScreen(),
+      title: 'News Snack',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: showingSplash ? SplashScreen() : HomeScreen(),
     );
   }
 }
-

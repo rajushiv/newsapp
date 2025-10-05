@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/view/widget/NewsContainer.dart';
+import 'package:news_snack/controller/fetchNews.dart';
+import 'package:news_snack/model/newsArt.dart';
+import 'package:news_snack/view/widget/NewsContainer.dart';
 
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
-class HomeScreen extends StatelessWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-  const HomeScreen({super.key});
+class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = true;
+
+  late NewsArt newsArt;
+
+  GetNews() async {
+    newsArt = await FetchNews.fetchNews();
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    GetNews();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: PageView.builder(
-      controller: PageController(initialPage: 0),
-      scrollDirection: Axis.vertical,
-        itemCount: 10,
-        itemBuilder: (context , index) {
-          return NewsContainer(
-              imgUrl: "https://media.istockphoto.com/id/928623156/photo/old-newspaper-texture-background.jpg?s=1024x1024&w=is&k=20&c=THtggdiRiXErv_RNB25cVnfHxazhzzxm2IbMec3T-vY=",
-              newsDes: "India stands on the brink of a technological revolution with the advent of 5G. This next-generation wireless technology promises to deliver unprecedented speed, ultra-low latency, and massive connectivity. But what does this mean for India? Let's explore some of the most exciting and transformative use cases of 5G in the Indian context.",
-              newsHead: "5g in india",
-              newsUrl: "https://eservices.dot.gov.in/5g-use-cases-india-perspective",
-          );
-        }),
+
+
+      body: PageView.builder(
+          controller: PageController(initialPage: 0),
+          scrollDirection: Axis.vertical,
+          onPageChanged: (value) {
+            setState(() {
+              isLoading = true;
+            });
+            GetNews();
+          },
+          itemBuilder: (context, index) {
+            return isLoading ? Center(child: CircularProgressIndicator(),) : NewsContainer(
+                imgUrl: newsArt.imgUrl,
+                newsCnt: newsArt.newsCnt,
+                newsHead: newsArt.newsHead,
+                newsDes: newsArt.newsDes,
+                newsUrl: newsArt.newsUrl);
+          }),
     );
   }
 }

@@ -5,12 +5,13 @@ class NewsContainer extends StatelessWidget {
   String newsHead;
   String newsDes;
   String newsUrl;
-   NewsContainer({super.key,
-   required this.imgUrl,
+
+  NewsContainer({
+    super.key,
+    required this.imgUrl,
     required this.newsDes,
     required this.newsHead,
     required this.newsUrl,
-
   });
 
   @override
@@ -18,17 +19,22 @@ class NewsContainer extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: Column(children: [
-        Image.network(imgUrl,height: 300,width: 300,),
-        Text(newsHead,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-        Text(newsDes,style: TextStyle(fontSize:17 ),),
-        ElevatedButton(
+      child: Column(
+        children: [
+          Image.network(imgUrl, height: 300, width: 300),
+          Text(
+            newsHead,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(newsDes, style: TextStyle(fontSize: 17)),
+          ElevatedButton(
             onPressed: () {
-          print("GOING TO $newsUrl");
-        },
-              child: Text("Read More")),
-      ]),
+              print("GOING TO $newsUrl");
+            },
+            child: Text("Read More"),
+          ),
+        ],
+      ),
     );
   }
 }
-
