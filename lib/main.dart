@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_snack/view/home.dart';
-import 'package:news_snack/view/spalsh.dart';
+import 'package:news_sna
 
 void main() {
   runApp(const MyApp());
